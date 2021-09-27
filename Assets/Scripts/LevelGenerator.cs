@@ -76,8 +76,6 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
-        //Instantiate(mapPieces[1], new Vector3(0f, 0f, 0f), Quaternion.identity);
-        //Instantiate(mapPieces[2], new Vector3(1.276f, 0f, 0f), Quaternion.identity);
     }
     public int North(int i, int j)
     {
@@ -122,71 +120,79 @@ public class LevelGenerator : MonoBehaviour
         {
             return levelMap[i, j-1];
         }
-    }
-    private bool[] CompassLocation(bool[] directions, int north, int east, int south, int west)
-    {
-        if (north == 2 || north == 3 || north == 4 || north == 5)
-        {
-            directions[0] = true;
-        }
-        if (east == 2 || east == 3 || east == 4 || east == 5)
-        {
-            directions[1] = true;
-        }
-        if (south == 2 || south == 3 || south == 4 || south == 5)
-        {
-            directions[2] = true;
-        }
-        if (west == 2 || west == 3 || west == 4 || west == 5)
-        {
-            directions[3] = true;
-        }
-        return directions;
-    }
+    }    
 
     //CORNERS NEED PRESEDENCE
     public float Corner(int north, int east, int south, int west)
     {
-        bool[] directions = { false, false, false, false };
-        
-
-        directions = CompassLocation(directions, north, east, south, west);
-
         float rotate = 0f;
-        if (directions[0] && directions[1])
+
+        if (north == 1 || north == 3 || north == 7 || north == 2 || north == 4)
         {
             rotate = 90f;
-        }else if (directions[0] && directions[3])
+            if (east == 2 || east == 4 || east == 1 || east == 3 || east == 7)
+            {
+                rotate = 90f;
+                if (west == 4 && south == 4)
+                {
+                    rotate = 0f;
+                }
+            }else if (west == 1 || west == 3 || west == 7 || west == 2 || west == 4)
+            {
+                rotate = 180f;
+                if (south == 4){
+                    rotate = -90f;
+                }
+            }
+        }else if (south == 2 || south == 4 || south == 1 || south == 3 || south == 7)
         {
-            rotate = 180f;
-        }        
-        else if (directions[2] && directions[3])
-        {
-            rotate = -90f;
+            if (east == 2 || east == 4 || east == 1 || east == 3 || east == 7)
+            {
+                rotate = 0f;
+            }
+            else if (west == 1 || west == 3 || west == 7 || west == 2 || west == 4)
+            {
+                rotate = -90f;
+            }
         }
-        else if (directions[2] && directions[1])
-        {
-            rotate = 0f;
-        }
+
         return rotate;
     }
     public float Wall(int north, int east, int south, int west)
     {
 
-        bool[] directions = { false, false, false, false };
-
-
-        directions = CompassLocation(directions, north, east, south, west);
 
         float rotate = 0f;
-        if (directions[0] && directions[2])
+
+        
+        if (east == 1 || east == 3 || east == 7 || west == 1 || west == 3 || west == 7)
+        {
+            rotate = 90f;
+            if (north == 4 && south == 4)
+            {
+                rotate = 0f;
+            }
+        }else if (north == 1 || north == 3 || north == 7 || south == 1 || south == 3 || south == 7)
         {
             rotate = 0f;
+            if (west == 4 && north == 5)
+            {
+                rotate = 90f;
+            }
         }
-        else if (directions[1] && directions[3])
+        else if (north == 2 || north == 4 || south == 2 || south == 4)
+        {
+            rotate = 0f;
+            if (east == 4 && west == 4)
+            {
+                rotate = 90f;
+            }
+        }
+        else if (east == 2 || east == 4 || west == 2 || west == 4)
         {
             rotate = 90f;
         }
+        
         return rotate;
     }
     // Update is called once per frame
