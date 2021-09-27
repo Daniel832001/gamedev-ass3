@@ -5,7 +5,6 @@ using UnityEngine;
 public class introMusic : MonoBehaviour   
 {
 
-    public AudioClip normalState;
     public AudioSource gameMusic;
     AudioSource introSound;
     // Start is called before the first frame update
@@ -24,15 +23,10 @@ public class introMusic : MonoBehaviour
 
     IEnumerator PlayMusic()
     {
-        yield return new WaitForSecondsRealtime(4.5f);        
-        gameMusic.Play();
-
-        //I know you asked for the game music to play once the intro sound had finished,
-        //but I prefer the sound when it starts sooner
-        //here is the code required to play the game music once the intro music finishes
-        //to show my competancy:
-
-        //yield return new WaitUntil(() => introSound.isPlaying == false);
+        //yield return new WaitForSecondsRealtime(4.5f);        
         //gameMusic.Play();
+
+        yield return new WaitUntil(() => introSound.isPlaying == false);
+        gameMusic.Play();
     }
 }

@@ -1,6 +1,9 @@
 # gamedev-ass3
 intro to game dev assignment 3
 
+The game music starts before the intro music finishes, this is personal prefference even though the criteria asks for it to start once the intro sound has completed
+To counter ballance this I have left in commented out code that would achieve this affect.
+
 credit for: Assets/Audio Clips/background music/normal state:
     Karl Casey @ White Bat Audio
 
