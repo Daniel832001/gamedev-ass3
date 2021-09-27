@@ -41926,7 +41926,7 @@ GameObject:
   - component: {fileID: 1278416719}
   m_Layer: 0
   m_Name: map layout - bottom half
-  m_TagString: Untagged
+  m_TagString: MapLayout
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54773,7 +54773,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ae44f2ab49a437e4496af3b8129b3d2c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -58454,7 +58454,7 @@ GameObject:
   - component: {fileID: 1773914445}
   m_Layer: 0
   m_Name: map layout - top half
-  m_TagString: Untagged
+  m_TagString: MapLayout
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62572,6 +62572,57 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1870653835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1870653837}
+  - component: {fileID: 1870653836}
+  m_Layer: 0
+  m_Name: Map layout generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1870653836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870653835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5166f29f9df126349b29b0cbf3f65d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emptySpace: {fileID: -2373623210157555618, guid: b1d0ab24b7a7e104ebde075f2fc0d25f, type: 3}
+  outsideCorner: {fileID: 3302268829812372852, guid: b1d0ab24b7a7e104ebde075f2fc0d25f, type: 3}
+  outsideWall: {fileID: -4886068020098801376, guid: b1d0ab24b7a7e104ebde075f2fc0d25f, type: 3}
+  insideCorner: {fileID: -3772806665685898995, guid: b1d0ab24b7a7e104ebde075f2fc0d25f, type: 3}
+  insideWall: {fileID: -3590549905542801280, guid: b1d0ab24b7a7e104ebde075f2fc0d25f, type: 3}
+  pellet: {fileID: -8441685552132780779, guid: b1d0ab24b7a7e104ebde075f2fc0d25f, type: 3}
+  powerPellet: {fileID: 1386328007}
+  tJunction: {fileID: -5647513822047108176, guid: b1d0ab24b7a7e104ebde075f2fc0d25f, type: 3}
+--- !u!4 &1870653837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870653835}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.22596, y: -18.141241, z: -5.6577497}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1871180715
 GameObject:
   m_ObjectHideFlags: 0
