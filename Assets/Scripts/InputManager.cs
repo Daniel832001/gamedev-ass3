@@ -26,27 +26,27 @@ public class InputManager : MonoBehaviour
     {
         if (item.transform.position == new Vector3(1.28f, -6.45f, -1.0f))
         {
-            
-            MoveInCircle(new Vector3(1.28f, -1.32f, -1.0f));
+            pacmanController.ResetTrigger("Left");
             pacmanController.SetTrigger("Up");
+            MoveInCircle(new Vector3(1.28f, -1.32f, -1.0f));
         }
         else if(item.transform.position == new Vector3(1.28f, -1.32f, -1.0f))
         {
-            
-            MoveInCircle(new Vector3(7.65f, -1.32f, -1.0f));
+            pacmanController.ResetTrigger("Up");
             pacmanController.SetTrigger("Right");
+            MoveInCircle(new Vector3(7.65f, -1.32f, -1.0f));
         }
         else if (item.transform.position == new Vector3(7.65f, -1.32f, -1.0f))
         {
-            
-            MoveInCircle(new Vector3(7.65f, -6.45f, -1.0f));
+            pacmanController.ResetTrigger("Right");
             pacmanController.SetTrigger("Down");
+            MoveInCircle(new Vector3(7.65f, -6.45f, -1.0f));
         }
         else if (item.transform.position == new Vector3(7.65f, -6.45f, -1.0f))
         {
-            
-            MoveInCircle(new Vector3(1.28f, -6.45f, -1.0f));
+            pacmanController.ResetTrigger("Down");
             pacmanController.SetTrigger("Left");
+            MoveInCircle(new Vector3(1.28f, -6.45f, -1.0f));
         }
         yield return null;
     }
