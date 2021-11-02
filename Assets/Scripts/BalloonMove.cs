@@ -17,7 +17,7 @@ public class BalloonMove : MonoBehaviour
         tweener = GetComponent<Tweener>();
         first = true;
         MoveInCircle(new Vector3(65.1f, 38f, 0f));
-
+        //item.transform.position = new Vector3(65.1f, 38f, 0f);
     }
 
     // Update is called once per frame
@@ -30,6 +30,7 @@ public class BalloonMove : MonoBehaviour
     private IEnumerator PacmanLoop()
     {
         //if (item.transform.localPosition == new Vector3(-489.4f, -310f, 0f))
+        //if (item.transform.position == new Vector3(65.1f, 38f, 0f))
         if (item.transform.position == new Vector3(65.1f, 38f, 0f))
         {
             pacmanController.ResetTrigger("Left");
@@ -65,7 +66,8 @@ public class BalloonMove : MonoBehaviour
         if (endPos.x == item.transform.position.x)
         {
             distance = endPos.y - item.transform.position.y;
-        }else if (endPos.y == item.transform.position.y)
+        }
+        else if (endPos.y == item.transform.position.y)
         {
             distance = endPos.x - item.transform.position.x;
         }
@@ -74,10 +76,9 @@ public class BalloonMove : MonoBehaviour
             distance = endPos.x - item.transform.position.x;
             first = false;
         }
-        Debug.Log(item.name + ": " + distance);
-        return AddItem(endPos, 1.0f*Math.Abs(distance)/100);
+        //return AddItem(endPos, 1.0f*Math.Abs(distance)/100);
+        return AddItem(endPos, 1.0f);
     }
-    
 
     private bool AddItem(Vector3 position, float time)
     { 
