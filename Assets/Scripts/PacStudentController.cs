@@ -79,6 +79,7 @@ public class PacStudentController : MonoBehaviour
             UpdateLocation();
 
             Vector3 targetPosittion = rows[currentRow].cols[currentCol].position;
+            targetPosittion.z = targetPosittion.z-5f;
             PlayMovementAudio();            
             AddItem(targetPosittion, GetTime(targetPosittion));
         }
