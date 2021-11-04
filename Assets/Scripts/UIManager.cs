@@ -54,7 +54,10 @@ public class UIManager : MonoBehaviour
     public void LoadFirstLevel()
     {
         SceneManager.LoadSceneAsync(1);
-
+    }
+    public void Exit()
+    {
+        SceneManager.LoadSceneAsync(0);
     }
     public void LoadFirstLevel1()
     {
