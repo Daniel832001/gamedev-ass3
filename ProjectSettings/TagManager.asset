@@ -20,6 +20,10 @@ TagManager:
   - Row 13
   - Row 14
   - Row 15
+  - Left Corner
+  - Right Corner
+  - Top Half
+  - Bottom Half
   layers:
   - Default
   - TransparentFX
