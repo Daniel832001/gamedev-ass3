@@ -3,6 +3,13 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+
+
+//I DO NOT CLAIM CREDIT FOR THIS CODE IN ANY WAY SHAPE OR FORM
+
+
+
+
 namespace Gamestrap
 {
     [AddComponentMenu("UI/Gamestrap UI/Gradient")]

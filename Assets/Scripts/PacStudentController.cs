@@ -15,7 +15,9 @@ public class PacStudentController : MonoBehaviour
     //currentCol 0 is the parent object
     private int currentCol = 2;
     private List<Row> rows = new List<Row>();
-    public AudioSource pacmanMovementSound;
+    public AudioSource pacStuMovementSound;
+    public AudioSource pacStuPelletSound;
+    public Animator pacStuController;
 
     // Start is called before the first frame update
     void Start()
@@ -35,10 +37,19 @@ public class PacStudentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (tweener.TweenExists(pacStudent.transform) && !pacmanMovementSound.isPlaying)
-        {
-            pacmanMovementSound.Play();
-        }
+        //if (tweener.TweenExists(pacStudent.transform) && !pacStuMovementSound.isPlaying)
+        //{
+        //    if (rows[currentRow].cols[currentCol].name.Contains("layout_0"))
+        //    {
+        //        pacStuPelletSound.Play();
+        //        pacStuMovementSound.Stop();
+        //    }
+        //    else
+        //    {
+        //        pacStuMovementSound.Play();
+        //        pacStuPelletSound.Stop();
+        //    }
+        //}
         if (Input.GetKeyDown(KeyCode.W))
         {
             lastInput = "W";
@@ -62,7 +73,8 @@ public class PacStudentController : MonoBehaviour
         }
         if (!tweener.TweenExists(pacStudent.transform))
         {
-            pacmanMovementSound.Stop();
+            pacStuMovementSound.Stop();
+            pacStuPelletSound.Stop();
         }
     }
 
@@ -76,6 +88,7 @@ public class PacStudentController : MonoBehaviour
             UpdateLocation();
 
             Vector3 targetPosittion = rows[currentRow].cols[currentCol].position;
+            PlayMovementAudio();            
             AddItem(targetPosittion, GetTime(targetPosittion));
         }
         yield return null;
@@ -152,20 +165,55 @@ public class PacStudentController : MonoBehaviour
         switch (currentInput)
         {
             case "W":
-                currentRow -= 1;
+                currentRow -= 1;                
+                pacStuController.SetTrigger("Up");
+                pacStuController.ResetTrigger("Left");
+                pacStuController.ResetTrigger("Down");
+                pacStuController.ResetTrigger("Right");
                 break;
             case "S":
                 currentRow += 1;
+                pacStuController.SetTrigger("Down");
+                pacStuController.ResetTrigger("Left");
+                pacStuController.ResetTrigger("Up");
+                pacStuController.ResetTrigger("Right");
                 break;
             case "D":
                 currentCol += 1;
+                pacStuController.SetTrigger("Right");
+                pacStuController.ResetTrigger("Left");
+                pacStuController.ResetTrigger("Down");
+                pacStuController.ResetTrigger("Up");
                 break;
             case "A":
                 currentCol -= 1;
+                pacStuController.SetTrigger("Left");
+                pacStuController.ResetTrigger("Up");
+                pacStuController.ResetTrigger("Down");
+                pacStuController.ResetTrigger("Right");
                 break;
         }
     }
 
+    void PlayMovementAudio()
+    {
+        if (rows[currentRow].cols[currentCol].name.Contains("layout_0"))
+        {
+            if (!pacStuMovementSound.isPlaying)
+            {
+                pacStuMovementSound.Play();
+            }
+            pacStuPelletSound.Stop();
+        }
+        else
+        {
+            if (!pacStuPelletSound.isPlaying)
+            {
+                pacStuPelletSound.Play();
+            }
+            pacStuMovementSound.Stop();
+        }
+    }
 
     float GetTime(Vector3 position)
     {
