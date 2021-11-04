@@ -24,6 +24,20 @@ TagManager:
   - Right Corner
   - Top Half
   - Bottom Half
+  - Row 0
+  - Row 16
+  - Row 17
+  - Row 18
+  - Row 19
+  - Row 20
+  - Row 21
+  - Row 22
+  - Row 23
+  - Row 24
+  - Row 25
+  - Row 26
+  - Row 27
+  - Row 28
   layers:
   - Default
   - TransparentFX

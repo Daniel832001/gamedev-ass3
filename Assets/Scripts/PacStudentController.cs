@@ -40,7 +40,7 @@ public class PacStudentController : MonoBehaviour
 
         if (!lerping)
         {
-            Move();
+            StartCoroutine(Move());
         }
         Debug.Log(lastInput);
     }
@@ -51,7 +51,7 @@ public class PacStudentController : MonoBehaviour
         return false;
     }
 
-    void Move()
+    private IEnumerator Move()
     {
         string attemptedDirection = Direction();
         if (!attemptedDirection.Equals(""))
@@ -61,7 +61,7 @@ public class PacStudentController : MonoBehaviour
             Vector3 targetPosittion = GetNewPosition();
             AddItem(targetPosittion, GetTime(targetPosittion));
         }
-
+        yield return null;
     }
 
     string Direction()
