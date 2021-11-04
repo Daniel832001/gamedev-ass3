@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PacStudentController : MonoBehaviour
 {
@@ -11,12 +12,15 @@ public class PacStudentController : MonoBehaviour
     private Tweener tweener;
     private GameObject pacStudent;
     private int currentRow = 1;
-    private int currentCol = 1;
+    //currentCol 0 is the parent object
+    private int currentCol = 2;
     private List<Row> rows = new List<Row>();
+    public AudioSource pacmanMovementSound;
 
     // Start is called before the first frame update
     void Start()
     {
+        //pacmanMovementSound.Play();
         tweener = GetComponent<Tweener>();
         pacStudent = GameObject.FindWithTag("PacStudent");
 
@@ -31,6 +35,10 @@ public class PacStudentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (tweener.TweenExists(pacStudent.transform) && !pacmanMovementSound.isPlaying)
+        {
+            pacmanMovementSound.Play();
+        }
         if (Input.GetKeyDown(KeyCode.W))
         {
             lastInput = "W";
@@ -47,11 +55,14 @@ public class PacStudentController : MonoBehaviour
         {
             lastInput = "D";
         }
-
         //if not lerping start new lerp
         if (!tweener.TweenExists(pacStudent.transform))
         {
             StartCoroutine(Move());
+        }
+        if (!tweener.TweenExists(pacStudent.transform))
+        {
+            pacmanMovementSound.Stop();
         }
     }
 
@@ -88,23 +99,25 @@ public class PacStudentController : MonoBehaviour
         switch (direction)
         {
             case "W":
-                if (currentRow < 28)
-                {
-                    if (rows[currentRow + 1].cols[currentCol].name.Contains("layout_5")
-                    || rows[currentRow + 1].cols[currentCol].name.Contains("layout_0")
-                    || rows[currentRow + 1].cols[currentCol].name.Contains("power pellet"))
-                    {
-                        return true;
-                    }
-                }                
-                break;
-            case "S":
                 if (currentRow > 0)
                 {
                     if (rows[currentRow - 1].cols[currentCol].name.Contains("layout_5")
                     || rows[currentRow - 1].cols[currentCol].name.Contains("layout_0")
                     || rows[currentRow - 1].cols[currentCol].name.Contains("power pellet"))
                     {
+                        return true;
+                    }
+                }                
+                break;
+            case "S":
+                
+                if (currentRow < 28)
+                {
+                    if (rows[currentRow + 1].cols[currentCol].name.Contains("layout_5")
+                    || rows[currentRow + 1].cols[currentCol].name.Contains("layout_0")
+                    || rows[currentRow + 1].cols[currentCol].name.Contains("power pellet"))
+                    {
+                        
                         return true;
                     }
                 }
@@ -139,10 +152,10 @@ public class PacStudentController : MonoBehaviour
         switch (currentInput)
         {
             case "W":
-                currentRow += 1;
+                currentRow -= 1;
                 break;
             case "S":
-                currentRow -= 1;
+                currentRow += 1;
                 break;
             case "D":
                 currentCol += 1;
@@ -156,8 +169,16 @@ public class PacStudentController : MonoBehaviour
 
     float GetTime(Vector3 position)
     {
-
-        return 0f;
+        float speed = 100f;
+        float distance = 0f;
+        if (currentInput.Equals("W") || currentInput.Equals("S"))
+        {
+            distance = Math.Abs(position.y - pacStudent.transform.position.y);
+        }else if (currentInput.Equals("A") || currentInput.Equals("D"))
+        {
+            distance = Math.Abs(position.x - pacStudent.transform.position.x);
+        }
+        return distance / speed;
     }
 
     private bool AddItem(Vector3 position, float time)

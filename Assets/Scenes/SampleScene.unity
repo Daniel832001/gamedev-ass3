@@ -5267,7 +5267,7 @@ GameObject:
   - component: {fileID: 128994421}
   m_Layer: 0
   m_Name: Balloon
-  m_TagString: Untagged
+  m_TagString: PacStudent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13752,7 +13752,7 @@ GameObject:
   - component: {fileID: 369575091}
   m_Layer: 0
   m_Name: map layout
-  m_TagString: Top Half
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45243,6 +45243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9105be927f6498409a2c0be367a57d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pacmanMovementSound: {fileID: 1676542915}
 --- !u!114 &1344212115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55927,7 +55928,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ae44f2ab49a437e4496af3b8129b3d2c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
