@@ -5,6 +5,21 @@ TagManager:
   serializedVersion: 2
   tags:
   - MapLayout
+  - Row 1
+  - Row 2
+  - Row 3
+  - Row 4
+  - Row 5
+  - Row 6
+  - Row 7
+  - Row 8
+  - Row 9
+  - Row 10
+  - Row 11
+  - Row 12
+  - Row 13
+  - Row 14
+  - Row 15
   layers:
   - Default
   - TransparentFX
