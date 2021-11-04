@@ -18,11 +18,11 @@ public class PacStudentController : MonoBehaviour
     public AudioSource pacStuMovementSound;
     public AudioSource pacStuPelletSound;
     public Animator pacStuController;
+    public ParticleSystem movementParticle;
 
     // Start is called before the first frame update
     void Start()
     {
-        //pacmanMovementSound.Play();
         tweener = GetComponent<Tweener>();
         pacStudent = GameObject.FindWithTag("PacStudent");
 
@@ -32,24 +32,13 @@ public class PacStudentController : MonoBehaviour
             Row row = new Row(currentRow.transform.GetComponentsInChildren<Transform>());
             rows.Add(row);
         }
+        movementParticle.Clear();
+        movementParticle.Stop();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (tweener.TweenExists(pacStudent.transform) && !pacStuMovementSound.isPlaying)
-        //{
-        //    if (rows[currentRow].cols[currentCol].name.Contains("layout_0"))
-        //    {
-        //        pacStuPelletSound.Play();
-        //        pacStuMovementSound.Stop();
-        //    }
-        //    else
-        //    {
-        //        pacStuMovementSound.Play();
-        //        pacStuPelletSound.Stop();
-        //    }
-        //}
         if (Input.GetKeyDown(KeyCode.W))
         {
             lastInput = "W";
@@ -75,6 +64,8 @@ public class PacStudentController : MonoBehaviour
         {
             pacStuMovementSound.Stop();
             pacStuPelletSound.Stop();
+            movementParticle.Stop();
+            movementParticle.Clear();
         }
     }
 
@@ -202,6 +193,7 @@ public class PacStudentController : MonoBehaviour
             if (!pacStuMovementSound.isPlaying)
             {
                 pacStuMovementSound.Play();
+                movementParticle.Play();
             }
             pacStuPelletSound.Stop();
         }
@@ -210,6 +202,7 @@ public class PacStudentController : MonoBehaviour
             if (!pacStuPelletSound.isPlaying)
             {
                 pacStuPelletSound.Play();
+                movementParticle.Play();
             }
             pacStuMovementSound.Stop();
         }
