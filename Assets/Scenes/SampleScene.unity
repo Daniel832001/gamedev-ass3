@@ -45354,6 +45354,7 @@ GameObject:
   - component: {fileID: 1344212115}
   - component: {fileID: 1344212114}
   - component: {fileID: 1344212117}
+  - component: {fileID: 1344212118}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -45376,6 +45377,7 @@ MonoBehaviour:
   pacStuMovementSound: {fileID: 1676542915}
   pacStuPelletSound: {fileID: 630656300}
   pacStuController: {fileID: 128994421}
+  movementParticle: {fileID: 1907018136}
 --- !u!114 &1344212115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45414,6 +45416,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25b918ed2a55124b8bd036f77625d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1344212118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344212113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 637b8dc00bcb3c54a990d43645cc45ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cherry: {fileID: 111330555044983431, guid: c6654b51522cdb543b6fb41e1c30e944, type: 3}
 --- !u!1 &1344928431
 GameObject:
   m_ObjectHideFlags: 0
