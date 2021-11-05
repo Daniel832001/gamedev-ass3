@@ -142,6 +142,7 @@ public class PacStudentCollision : MonoBehaviour
         powerPellet.gameObject.GetComponent<Animator>().enabled = false;
         powerPellet.gameObject.GetComponent<SpriteRenderer>().sprite = emptyTile.GetComponent<SpriteRenderer>().sprite;
         scaredSound.Play();
+        music.PowerPelletStart();
         startTimer = 10;
         StartCoroutine(CountDown());
     }
