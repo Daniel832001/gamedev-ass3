@@ -9,6 +9,7 @@ public class PacStudentCollision : MonoBehaviour
     private ParticleSystem currentParticle;
     List<ParticleSystem> collisions = new List<ParticleSystem>();
     public AudioSource collisionSound;
+    public AudioSource scaredSound;
     public GameObject pacStu;
     public Tweener tweener;
     public Transform leftPortal;
@@ -17,6 +18,9 @@ public class PacStudentCollision : MonoBehaviour
     public Text points;
     private int score;
     public CherryController cherryController;
+    private float startTimer;
+    public introMusic music;
+    public Text timer;
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +33,17 @@ public class PacStudentCollision : MonoBehaviour
     {
         if (currentParticle != null)
         {
-            for (int i = collisions.Count - 1; i > -1; i--)
+            for (int i = collisions.Count - 1; i > 0; i--)
             {
-                if (collisions[i].isStopped)
+                if (collisions[i] != null)
                 {
-                    Destroy(collisions[i]);
-                    collisions.Remove(collisions[i]);
+                    if (collisions[i].isStopped)
+                    {
+                        Destroy(collisions[i]);
+                        collisions.Remove(collisions[i]);
+                    }
                 }
+                
             }
         }
     }
@@ -77,14 +85,14 @@ public class PacStudentCollision : MonoBehaviour
         collisions.Add(currentParticle);
         currentParticle.Play();
         collisionSound.Play();
-        StartCoroutine(StopParticle(collisions.IndexOf(currentParticle)));
+        StartCoroutine(StopParticle(currentParticle));
     }
 
-    IEnumerator StopParticle(int index)
+    IEnumerator StopParticle(ParticleSystem index)
     {
         yield return new WaitForSeconds(1);
-        collisions[index].Stop();
-        Destroy(collisions[index]);
+        index.Stop();
+        Destroy(index);
     }
 
     void Portal(Collider portal)
@@ -121,7 +129,7 @@ public class PacStudentCollision : MonoBehaviour
 
     void Cherry(Collider cherry)
     {
-        Debug.Log("you hit: " + cherry.gameObject.name);
+        //Debug.Log("you hit: " + cherry.gameObject.name);
         cherryController.DestroyCherry(cherry.gameObject);
         score += 100;
         points.text = score.ToString();
@@ -130,6 +138,31 @@ public class PacStudentCollision : MonoBehaviour
     void PowerPellet(Collider powerPellet)
     {
         Debug.Log("you hit: " + powerPellet.gameObject.name);
+        powerPellet.gameObject.name = "map layout_0";
+        powerPellet.gameObject.GetComponent<Animator>().enabled = false;
+        powerPellet.gameObject.GetComponent<SpriteRenderer>().sprite = emptyTile.GetComponent<SpriteRenderer>().sprite;
+        scaredSound.Play();
+        startTimer = 10;
+        StartCoroutine(CountDown());
+    }
+    IEnumerator CountDown()
+    {
+
+        if (startTimer > 0)
+        {
+            startTimer -= Time.deltaTime;
+        }
+        if (startTimer < 0)
+        {
+            startTimer = 0;
+        }
+        float minutes = Mathf.FloorToInt(startTimer / 60);
+        float seconds = Mathf.FloorToInt(startTimer % 60);
+        float miliseconds = Mathf.FloorToInt(startTimer % (60000));
+        timer.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, miliseconds);
+        yield return new WaitForSeconds(10);
+        scaredSound.Stop();
+        music.PowerPelletFinish();
     }
 
     void Ghost(Collider ghost)

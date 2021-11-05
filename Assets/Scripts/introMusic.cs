@@ -29,4 +29,12 @@ public class introMusic : MonoBehaviour
         yield return new WaitUntil(() => introSound.isPlaying == false);
         gameMusic.Play();
     }
+    public void PowerPelletStart()
+    {
+        gameMusic.Pause();
+    }
+    public void PowerPelletFinish()
+    {
+        gameMusic.Play();
+    }
 }
