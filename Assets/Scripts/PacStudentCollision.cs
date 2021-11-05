@@ -21,12 +21,15 @@ public class PacStudentCollision : MonoBehaviour
     public bool startTimer = false;
     public introMusic music;
     public Text timer;
-    public float time;
+    private float time;
     public Text ghostTimer;
     public Animator greenGhost;
     public Animator yellowGhost;
     public Animator orangeGhost;
     public Animator pinkGhost;
+    private bool startGame = true;
+    private float gameTime;
+    public Text clock;
 
     // Start is called before the first frame update
     void Start()
@@ -56,8 +59,16 @@ public class PacStudentCollision : MonoBehaviour
             }
         }
 
+        if (startGame)
+        {   
+            gameTime += Time.deltaTime;
+
+            ChangeTimeMinute(gameTime);
+            
+        }
+
         if (startTimer)
-        {            
+        {
             if (time > 0)
             {
                 time -= Time.deltaTime;
@@ -68,21 +79,22 @@ public class PacStudentCollision : MonoBehaviour
             }
 
             ChangeTime(time);
-            
+
         }
 
 
     }
-
+    void ChangeTimeMinute(float currentTime)
+    {
+        float minute = Mathf.FloorToInt(currentTime / 60);
+        float seconds = Mathf.FloorToInt(currentTime % 60);
+        float miliseconds = currentTime % 1 * 1000;
+        clock.text = string.Format("{0:00}:{1:00}:{2:00}", minute,seconds, miliseconds);
+    }
     void ChangeTime(float currentTime)
     {
-        if (currentTime < 0)
-        {
-            currentTime = 0;
-            //startTimer = false;
-        }
-        float seconds = Mathf.FloorToInt(time % 60);
-        float miliseconds = time % 1 * 1000;
+        float seconds = Mathf.FloorToInt(currentTime % 60);
+        float miliseconds = currentTime % 1 * 1000;
         timer.text = string.Format("{0:00}:{1:000}", seconds, miliseconds);
     }
 
