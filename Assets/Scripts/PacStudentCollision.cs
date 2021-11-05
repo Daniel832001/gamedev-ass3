@@ -30,6 +30,7 @@ public class PacStudentCollision : MonoBehaviour
     private bool startGame = true;
     private float gameTime;
     public Text clock;
+    public AudioSource deathSound;
 
     // Start is called before the first frame update
     void Start()
@@ -187,7 +188,7 @@ public class PacStudentCollision : MonoBehaviour
 
     void PowerPellet(Collider powerPellet)
     {
-        Debug.Log("you hit: " + powerPellet.gameObject.name);
+        //Debug.Log("you hit: " + powerPellet.gameObject.name);
         powerPellet.gameObject.name = "map layout_0";
         powerPellet.gameObject.GetComponent<Animator>().enabled = false;
         powerPellet.gameObject.GetComponent<SpriteRenderer>().sprite = emptyTile.GetComponent<SpriteRenderer>().sprite;
@@ -219,9 +220,12 @@ public class PacStudentCollision : MonoBehaviour
     }
     void Alive(Animator ghost)
     {
-        ghost.SetTrigger("Alive");
-        ghost.ResetTrigger("Recover");
-        ghost.ResetTrigger("Scared");
+        if (!ghost.GetBool("Dead"))
+        {
+            ghost.SetTrigger("Alive");
+            ghost.ResetTrigger("Recover");
+            ghost.ResetTrigger("Scared");
+        }
     }
     IEnumerator CountDown()
     {
@@ -236,7 +240,10 @@ public class PacStudentCollision : MonoBehaviour
         Alive(orangeGhost);
         Alive(pinkGhost);
         scaredSound.Stop();
-        music.PowerPelletFinish();
+        if (!greenGhost.GetBool("Dead") && !yellowGhost.GetBool("Dead") && !orangeGhost.GetBool("Dead") && !pinkGhost.GetBool("Dead"))
+        {
+            music.PowerPelletFinish();
+        }            
         ghostTimer.enabled = false;
         timer.enabled = false;
 
@@ -245,6 +252,53 @@ public class PacStudentCollision : MonoBehaviour
     void Ghost(Collider ghost)
     {
         Debug.Log("you hit: " + ghost.gameObject.name);
+
+        if (ghost.gameObject.GetComponent<Animator>().GetBool("Scared") || ghost.gameObject.GetComponent<Animator>().GetBool("Recover"))
+        {
+            scaredSound.Pause();
+            if (!deathSound.isPlaying)
+            {
+                deathSound.Play();
+            }
+            score += 300;
+            points.text = score.ToString();
+            ghost.gameObject.GetComponent<Animator>().SetTrigger("Dead");
+            ghost.gameObject.GetComponent<Animator>().ResetTrigger("Recover");
+            ghost.gameObject.GetComponent<Animator>().ResetTrigger("Scared");
+            ghost.gameObject.GetComponent<Animator>().ResetTrigger("Alive");
+            StartCoroutine(Resurection(ghost.gameObject.GetComponent<Animator>()));
+        }
+        else if (ghost.gameObject.GetComponent<Animator>().GetBool("Alive")){
+
+        }
+
+
     }
 
+    IEnumerator Resurection(Animator ghost)
+    {
+        yield return new WaitForSeconds(5);
+        ghost.SetTrigger("Alive");
+        ghost.ResetTrigger("Recover");
+        ghost.ResetTrigger("Scared");
+        ghost.ResetTrigger("Dead");
+        CheckAlive();
+    }
+    void CheckAlive()
+    {
+        if (!greenGhost.GetBool("Dead") && !yellowGhost.GetBool("Dead") && !orangeGhost.GetBool("Dead") && !pinkGhost.GetBool("Dead"))
+        {
+            deathSound.Stop();
+            if (greenGhost.GetBool("Scared") || yellowGhost.GetBool("Scared") || orangeGhost.GetBool("Scared") || pinkGhost.GetBool("Scared"))
+            {
+                scaredSound.Play();
+            }
+            else
+            {
+                music.PowerPelletFinish();
+            }
+            
+            
+        }
+    }
 }
