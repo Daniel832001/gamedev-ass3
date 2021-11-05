@@ -22,11 +22,19 @@ public class PacStudentCollision : MonoBehaviour
     public introMusic music;
     public Text timer;
     public float time;
+    public Text ghostTimer;
+    public Animator greenGhost;
+    public Animator yellowGhost;
+    public Animator orangeGhost;
+    public Animator pinkGhost;
 
     // Start is called before the first frame update
     void Start()
     {
         score = int.Parse(points.text);
+
+        ghostTimer.enabled = false;
+        timer.enabled = false;
     }
 
     // Update is called once per frame
@@ -73,10 +81,9 @@ public class PacStudentCollision : MonoBehaviour
             currentTime = 0;
             //startTimer = false;
         }
-        float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
         float miliseconds = time % 1 * 1000;
-        timer.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, miliseconds);
+        timer.text = string.Format("{0:00}:{1:000}", seconds, miliseconds);
     }
 
     private void OnTriggerEnter(Collider entity)
@@ -176,13 +183,50 @@ public class PacStudentCollision : MonoBehaviour
         music.PowerPelletStart();
         startTimer = true;
         time = 10;
+        ghostTimer.enabled = true;
+        timer.enabled = true;
+        Scared(greenGhost);
+        Scared(yellowGhost);
+        Scared(orangeGhost);
+        Scared(pinkGhost);
         StartCoroutine(CountDown());
+    }
+
+    void Scared(Animator ghost)
+    {
+        ghost.SetTrigger("Scared");
+        ghost.ResetTrigger("Alive");
+        ghost.ResetTrigger("Recover");
+    }
+
+    void Recover(Animator ghost)
+    {
+        ghost.SetTrigger("Recover");
+        ghost.ResetTrigger("Alive");
+        ghost.ResetTrigger("Scared");
+    }
+    void Alive(Animator ghost)
+    {
+        ghost.SetTrigger("Alive");
+        ghost.ResetTrigger("Recover");
+        ghost.ResetTrigger("Scared");
     }
     IEnumerator CountDown()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(7);
+        Recover(greenGhost);
+        Recover(yellowGhost);
+        Recover(orangeGhost);
+        Recover(pinkGhost);
+        yield return new WaitForSeconds(3);
+        Alive(greenGhost);
+        Alive(yellowGhost);
+        Alive(orangeGhost);
+        Alive(pinkGhost);
         scaredSound.Stop();
         music.PowerPelletFinish();
+        ghostTimer.enabled = false;
+        timer.enabled = false;
 
     }
 

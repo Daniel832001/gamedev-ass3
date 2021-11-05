@@ -7271,8 +7271,11 @@ MonoBehaviour:
   emptyTile: {fileID: 664853427}
   points: {fileID: 1209315731}
   cherryController: {fileID: 1344212118}
+  startTimer: 0
   music: {fileID: 1605324801}
   timer: {fileID: 1959015306}
+  time: 0
+  ghostTimer: {fileID: 1856123562}
 --- !u!1 &133756928
 GameObject:
   m_ObjectHideFlags: 0
@@ -84664,10 +84667,10 @@ RectTransform:
   m_Father: {fileID: 435930785}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -69, y: 48.873825}
-  m_SizeDelta: {x: 131.95, y: 48.3554}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -160, y: -333}
+  m_SizeDelta: {x: 131.95, y: 48.355408}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1856123562
 MonoBehaviour:
@@ -93855,7 +93858,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 00:00:00
+  m_Text: 00:000
 --- !u!222 &1959015307
 CanvasRenderer:
   m_ObjectHideFlags: 0
