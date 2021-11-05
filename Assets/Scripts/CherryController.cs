@@ -29,11 +29,16 @@ public class CherryController : MonoBehaviour
             {
                 if (!tweener.TweenExists(cherries[i].transform))
                 {
-                    Destroy(cherries[i]);
-                    cherries.Remove(cherries[i]);
+                    DestroyCherry(cherries[i]);
                 }
             }
         }
+    }
+
+    public void DestroyCherry(GameObject cher)
+    {
+        Destroy(cherries[cherries.IndexOf(cher)]);
+        cherries.Remove(cherries[cherries.IndexOf(cher)]);
     }
 
     IEnumerator CallCherry()

@@ -16,6 +16,7 @@ public class PacStudentCollision : MonoBehaviour
     public GameObject emptyTile;
     public Text points;
     private int score;
+    public CherryController cherryController;
 
     // Start is called before the first frame update
     void Start()
@@ -121,6 +122,9 @@ public class PacStudentCollision : MonoBehaviour
     void Cherry(Collider cherry)
     {
         Debug.Log("you hit: " + cherry.gameObject.name);
+        cherryController.DestroyCherry(cherry.gameObject);
+        score += 100;
+        points.text = score.ToString();
     }
 
     void PowerPellet(Collider powerPellet)
