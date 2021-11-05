@@ -11,19 +11,6 @@ public class UIManager : MonoBehaviour
     private RectTransform[] rectTransforms = new RectTransform[3];
     private Tweener tweener;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //rectTransforms = gameObject.GetComponentsInChildren<RectTransform>();
-        //rectTransforms[1].sizeDelta = new Vector2(1500f,1500f);
-        //StartCoroutine(HideLoadingScreen());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     IEnumerator ShowLoadingScreen()
     {
@@ -62,7 +49,6 @@ public class UIManager : MonoBehaviour
     public void LoadFirstLevel1()
     {
         DontDestroyOnLoad(this);
-        //SceneManager.sceneLoaded += OnSceneLoaded;
         StartCoroutine(loadLevel());
 
     }
@@ -79,17 +65,4 @@ public class UIManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
     }
 
-    //public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    //{
-    //    if (scene.buildIndex == 1)
-    //    {
-    //        Button quitButton = GameObject.FindWithTag("QuitButton").GetComponent<Button>();
-    //        healthImage = GameObject.FindWithTag("PlayerHealthBar").GetComponent<Image>();
-    //        playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
-    //        parentImage = healthImage.GetComponentsInParent<Image>();
-    //        quitButton.onClick.AddListener(QuitGame);
-
-    //        StartCoroutine(HideLoadingScreen());
-    //    }
-    //}
 }
