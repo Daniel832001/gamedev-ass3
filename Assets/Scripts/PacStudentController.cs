@@ -234,6 +234,6 @@ public class PacStudentController : MonoBehaviour
 
     public Vector3 GetTilePos(int row, int col)
     {
-        return rows[row].cols[col].position;
+        return rows[row].cols[col+1].position;
     }
 }

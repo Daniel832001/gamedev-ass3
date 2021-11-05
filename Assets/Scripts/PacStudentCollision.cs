@@ -31,14 +31,21 @@ public class PacStudentCollision : MonoBehaviour
     private float gameTime;
     public Text clock;
     public AudioSource deathSound;
+    public Text life;
+    private Image[] lives = new Image[3];
+    public PacStudentController pacStuController;
 
     // Start is called before the first frame update
     void Start()
     {
         score = int.Parse(points.text);
-
+        lives = life.GetComponentsInChildren<Image>();
         ghostTimer.enabled = false;
         timer.enabled = false;
+        greenGhost.SetTrigger("Alive");
+        yellowGhost.SetTrigger("Alive");
+        orangeGhost.SetTrigger("Alive");
+        pinkGhost.SetTrigger("Alive");
     }
 
     // Update is called once per frame
@@ -251,7 +258,7 @@ public class PacStudentCollision : MonoBehaviour
 
     void Ghost(Collider ghost)
     {
-        Debug.Log("you hit: " + ghost.gameObject.name);
+        //Debug.Log("you hit: " + ghost.gameObject.name);
 
         if (ghost.gameObject.GetComponent<Animator>().GetBool("Scared") || ghost.gameObject.GetComponent<Animator>().GetBool("Recover"))
         {
@@ -269,7 +276,16 @@ public class PacStudentCollision : MonoBehaviour
             StartCoroutine(Resurection(ghost.gameObject.GetComponent<Animator>()));
         }
         else if (ghost.gameObject.GetComponent<Animator>().GetBool("Alive")){
+            for (int i = lives.Length-1; i>-1; i--)
+            {
+                if (lives[i] != null)
+                {
+                    Destroy(lives[i]);
+                    break;
+                }
+            }
 
+            tweener.AddTween(pacStu.transform, pacStu.transform.position, pacStuController.GetTilePos(1, 1), 0f);
         }
 
 
