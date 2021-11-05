@@ -106,51 +106,46 @@ public class PacStudentController : MonoBehaviour
             case "W":
                 if (currentRow > 0)
                 {
-                    //if (rows[currentRow - 1].cols[currentCol].name.Contains("layout_5")
-                    //|| rows[currentRow - 1].cols[currentCol].name.Contains("layout_0")
-                    //|| rows[currentRow - 1].cols[currentCol].name.Contains("power pellet"))
-                    //{
-                    //    return true;
-                    //}
-                    return true;
-                }                
+                    if (rows[currentRow - 1].cols[currentCol].name.Contains("layout_5")
+                    || rows[currentRow - 1].cols[currentCol].name.Contains("layout_0")
+                    || rows[currentRow - 1].cols[currentCol].name.Contains("power pellet"))
+                    {
+                        return true;
+                    }             }                
                 break;
             case "S":
                 
                 if (currentRow < 28)
                 {
-                    //if (rows[currentRow + 1].cols[currentCol].name.Contains("layout_5")
-                    //|| rows[currentRow + 1].cols[currentCol].name.Contains("layout_0")
-                    //|| rows[currentRow + 1].cols[currentCol].name.Contains("power pellet"))
-                    //{
+                    if (rows[currentRow + 1].cols[currentCol].name.Contains("layout_5")
+                    || rows[currentRow + 1].cols[currentCol].name.Contains("layout_0")
+                    || rows[currentRow + 1].cols[currentCol].name.Contains("power pellet"))
+                    {
 
-                    //    return true;
-                    //}
-                    return true;
+                        return true;
+                    }
                 }
                 break;
             case "D":
                 if (currentCol < 28)
                 {
-                    //if (rows[currentRow].cols[currentCol + 1].name.Contains("layout_5")
-                    //|| rows[currentRow].cols[currentCol + 1].name.Contains("layout_0")
-                    //|| rows[currentRow].cols[currentCol + 1].name.Contains("power pellet"))
-                    //{
-                    //    return true;
-                    //}
-                    return true;
+                    if (rows[currentRow].cols[currentCol + 1].name.Contains("layout_5")
+                    || rows[currentRow].cols[currentCol + 1].name.Contains("layout_0")
+                    || rows[currentRow].cols[currentCol + 1].name.Contains("power pellet"))
+                    {
+                        return true;
+                    }
                 }
                 break;
             case "A":
                 if (currentCol > 1)
                 {
-                    //if (rows[currentRow].cols[currentCol - 1].name.Contains("layout_5")
-                    //|| rows[currentRow].cols[currentCol - 1].name.Contains("layout_0")
-                    //|| rows[currentRow].cols[currentCol - 1].name.Contains("power pellet"))
-                    //{
-                    //    return true;
-                    //}
-                    return true;
+                    if (rows[currentRow].cols[currentCol - 1].name.Contains("layout_5")
+                    || rows[currentRow].cols[currentCol - 1].name.Contains("layout_0")
+                    || rows[currentRow].cols[currentCol - 1].name.Contains("power pellet"))
+                    {
+                        return true;
+                    }
                 }
                 break;
         }
