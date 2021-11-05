@@ -18,9 +18,10 @@ public class PacStudentCollision : MonoBehaviour
     public Text points;
     private int score;
     public CherryController cherryController;
-    private float startTimer;
+    public bool startTimer = false;
     public introMusic music;
     public Text timer;
+    public float time;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,36 @@ public class PacStudentCollision : MonoBehaviour
                 
             }
         }
+
+        if (startTimer)
+        {            
+            if (time > 0)
+            {
+                time -= Time.deltaTime;
+            }
+            else
+            {
+                time = 0;
+            }
+
+            ChangeTime(time);
+            
+        }
+
+
+    }
+
+    void ChangeTime(float currentTime)
+    {
+        if (currentTime < 0)
+        {
+            currentTime = 0;
+            //startTimer = false;
+        }
+        float minutes = Mathf.FloorToInt(time / 60);
+        float seconds = Mathf.FloorToInt(time % 60);
+        float miliseconds = time % 1 * 1000;
+        timer.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, miliseconds);
     }
 
     private void OnTriggerEnter(Collider entity)
@@ -143,27 +174,16 @@ public class PacStudentCollision : MonoBehaviour
         powerPellet.gameObject.GetComponent<SpriteRenderer>().sprite = emptyTile.GetComponent<SpriteRenderer>().sprite;
         scaredSound.Play();
         music.PowerPelletStart();
-        startTimer = 10;
+        startTimer = true;
+        time = 10;
         StartCoroutine(CountDown());
     }
     IEnumerator CountDown()
     {
-
-        if (startTimer > 0)
-        {
-            startTimer -= Time.deltaTime;
-        }
-        if (startTimer < 0)
-        {
-            startTimer = 0;
-        }
-        float minutes = Mathf.FloorToInt(startTimer / 60);
-        float seconds = Mathf.FloorToInt(startTimer % 60);
-        float miliseconds = Mathf.FloorToInt(startTimer % (60000));
-        timer.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, miliseconds);
         yield return new WaitForSeconds(10);
         scaredSound.Stop();
         music.PowerPelletFinish();
+
     }
 
     void Ghost(Collider ghost)
