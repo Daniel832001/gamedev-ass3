@@ -17,7 +17,6 @@ public class BalloonMove : MonoBehaviour
         tweener = GetComponent<Tweener>();
         first = true;
         MoveInCircle(new Vector3(65.1f, 38f, 0f));
-        //item.transform.position = new Vector3(65.1f, 38f, 0f);
     }
 
     // Update is called once per frame
@@ -29,29 +28,28 @@ public class BalloonMove : MonoBehaviour
 
     private IEnumerator PacmanLoop()
     {
-        //if (item.transform.localPosition == new Vector3(-489.4f, -310f, 0f))
-        //if (item.transform.position == new Vector3(65.1f, 38f, 0f))
+        //if in bottom left corner move up
         if (item.transform.position == new Vector3(65.1f, 38f, 0f))
         {
             pacmanController.ResetTrigger("Left");
             pacmanController.SetTrigger("Up");
             MoveInCircle(new Vector3(65.1f, 586.1f, 0f));
         }
-        //else if(item.transform.localPosition == new Vector3(-489.4f, 238.06f, 0f))
+        //if in top left corner move right
         else if (item.transform.position == new Vector3(65.1f, 586.1f, 0f))
         {
             pacmanController.ResetTrigger("Up");
             pacmanController.SetTrigger("Right");
             MoveInCircle(new Vector3(1044.7f, 586.1f, 0f));
         }
-        //else if (item.transform.localPosition == new Vector3(490.2f, 238.06f, 0f))
+        //if in top right corner move down
         else if (item.transform.position == new Vector3(1044.7f, 586.1f, 0f))
         {
             pacmanController.ResetTrigger("Right");
             pacmanController.SetTrigger("Down");
             MoveInCircle(new Vector3(1044.7f, 38f, 0f));
         }
-        //else if (item.transform.localPosition == new Vector3(490.2f, 238.06f, 0f))
+        //if in bottom right corner move left
         else if (item.transform.position == new Vector3(1044.7f, 38f, 0f))
         {
             pacmanController.ResetTrigger("Down");
@@ -63,20 +61,22 @@ public class BalloonMove : MonoBehaviour
     private bool MoveInCircle(Vector3 endPos)
     {
         float distance = 0.1f;
+        //if on same x axis, move y
         if (endPos.x == item.transform.position.x)
         {
             distance = endPos.y - item.transform.position.y;
         }
+        //if on same y axis, move x
         else if (endPos.y == item.transform.position.y)
         {
             distance = endPos.x - item.transform.position.x;
         }
+        //if its the first time it moves, move up on x axis
         if (first)
         {
             distance = endPos.x - item.transform.position.x;
             first = false;
         }
-        //return AddItem(endPos, 1.0f*Math.Abs(distance)/100);
         return AddItem(endPos, 1.0f);
     }
 

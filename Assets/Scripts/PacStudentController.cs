@@ -26,10 +26,12 @@ public class PacStudentController : MonoBehaviour
         tweener = GetComponent<Tweener>();
         pacStudent = GameObject.FindWithTag("PacStudent");
 
+
+        //adds all map rows to list variable rows
         for (int i = 0; i<29; i++)
         {
-            GameObject currentRow = GameObject.FindWithTag("Row " + i.ToString());
-            Row row = new Row(currentRow.transform.GetComponentsInChildren<Transform>());
+            GameObject currentRowObject = GameObject.FindWithTag("Row " + i.ToString());
+            Row row = new Row(currentRowObject.transform.GetComponentsInChildren<Transform>());
             rows.Add(row);
         }
         movementParticle.Clear();
@@ -39,6 +41,7 @@ public class PacStudentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //get next direction to move
         if (Input.GetKeyDown(KeyCode.W))
         {
             lastInput = "W";
@@ -55,11 +58,13 @@ public class PacStudentController : MonoBehaviour
         {
             lastInput = "D";
         }
+
         //if not lerping start new lerp
         if (!tweener.TweenExists(pacStudent.transform))
         {
             StartCoroutine(Move());
         }
+        //if pacman stops moving stop appropriate effects
         if (!tweener.TweenExists(pacStudent.transform))
         {
             pacStuMovementSound.Stop();
@@ -72,7 +77,8 @@ public class PacStudentController : MonoBehaviour
     private IEnumerator Move()
     {
         string attemptedDirection = Direction();
-        //if its possible to move in current direction or last input create new lerp
+
+        //if its possible to move in current direction or last input create new lerp in direction
         if (!attemptedDirection.Equals(""))
         {
             currentInput = attemptedDirection;
@@ -86,6 +92,7 @@ public class PacStudentController : MonoBehaviour
         yield return null;
     }
 
+    //if its possible to move in lastInput  direction or currentInput direction return direction
     string Direction()
     {
         if (CanMove(lastInput))
@@ -99,6 +106,7 @@ public class PacStudentController : MonoBehaviour
         return "";
     }
 
+    //check if possible to move in direction
     bool CanMove(string direction)
     {
         switch (direction)
@@ -208,6 +216,7 @@ public class PacStudentController : MonoBehaviour
         }
     }
 
+    //calcualte time for pacStudent to travel from start pos to end pos so that it moves at the same speed
     float GetTime(Vector3 position)
     {
         float speed = 100f;

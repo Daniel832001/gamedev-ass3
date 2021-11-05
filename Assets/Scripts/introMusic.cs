@@ -16,16 +16,8 @@ public class introMusic : MonoBehaviour
         StartCoroutine(PlayMusic());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     IEnumerator PlayMusic()
     {
-        //yield return new WaitForSecondsRealtime(4.5f);        
-        //gameMusic.Play();
 
         yield return new WaitUntil(() => introSound.isPlaying == false);
         gameMusic.Play();

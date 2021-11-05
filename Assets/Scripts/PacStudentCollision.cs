@@ -53,6 +53,7 @@ public class PacStudentCollision : MonoBehaviour
     {
         if (currentParticle != null)
         {
+            //remove completed collisions
             for (int i = collisions.Count - 1; i > 0; i--)
             {
                 if (collisions[i] != null)
@@ -106,9 +107,9 @@ public class PacStudentCollision : MonoBehaviour
         timer.text = string.Format("{0:00}:{1:000}", seconds, miliseconds);
     }
 
+    //determine which collision entity to run
     private void OnTriggerEnter(Collider entity)
     {
-        //Debug.Log("Collision Enter: " + entity.gameObject.name + " : " + entity.contacts[0]);
         if (entity.gameObject.name.Contains("layout_1") || entity.gameObject.name.Contains("layout_2") || entity.gameObject.name.Contains("layout_7")|| entity.gameObject.name.Contains("layout_3") || entity.gameObject.name.Contains("layout_4"))
         {
             Wall(entity);
@@ -138,7 +139,6 @@ public class PacStudentCollision : MonoBehaviour
 
     void Wall(Collider wall)
     {
-        //Debug.Log("you hit: " + wall.gameObject.name);
         currentParticle = Instantiate(collisionParticle, wall.gameObject.transform.position, Quaternion.identity);
         collisions.Add(currentParticle);
         currentParticle.Play();
@@ -159,20 +159,17 @@ public class PacStudentCollision : MonoBehaviour
         if (portal.gameObject.transform.position == leftPortal.position)
         {
             Debug.Log("left portal activated: " + pacStu.transform.position);
-            //pacStu.transform.position = rightPortal.position;
             tweener.AddTween(pacStu.transform, pacStu.transform.position, rightPortal.position, 0f);
             Debug.Log("teleportation complete: " + pacStu.transform.position);
         }
         else if (portal.gameObject.transform.position == rightPortal.position)
         {
-            //pacStu.transform.position = leftPortal.position;
             tweener.AddTween(pacStu.transform, pacStu.transform.position, leftPortal.position, 0f);
         }
     }
 
     void Pellet(Collider pellet)
     {
-        //Debug.Log("you hit: " + pellet.gameObject.name);
         StartCoroutine(DestroyPellet(pellet));
     }
 
@@ -187,7 +184,6 @@ public class PacStudentCollision : MonoBehaviour
 
     void Cherry(Collider cherry)
     {
-        //Debug.Log("you hit: " + cherry.gameObject.name);
         cherryController.DestroyCherry(cherry.gameObject);
         score += 100;
         points.text = score.ToString();
@@ -195,7 +191,6 @@ public class PacStudentCollision : MonoBehaviour
 
     void PowerPellet(Collider powerPellet)
     {
-        //Debug.Log("you hit: " + powerPellet.gameObject.name);
         powerPellet.gameObject.name = "map layout_0";
         powerPellet.gameObject.GetComponent<Animator>().enabled = false;
         powerPellet.gameObject.GetComponent<SpriteRenderer>().sprite = emptyTile.GetComponent<SpriteRenderer>().sprite;
@@ -258,7 +253,6 @@ public class PacStudentCollision : MonoBehaviour
 
     void Ghost(Collider ghost)
     {
-        //Debug.Log("you hit: " + ghost.gameObject.name);
 
         if (ghost.gameObject.GetComponent<Animator>().GetBool("Scared") || ghost.gameObject.GetComponent<Animator>().GetBool("Recover"))
         {

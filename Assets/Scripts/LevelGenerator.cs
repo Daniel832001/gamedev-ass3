@@ -41,17 +41,23 @@ public class LevelGenerator : MonoBehaviour
             { 2,2,2,2,2,1,5,3,3,0,4,0,0,0},      
             { 0,0,0,0,0,0,5,0,0,0,4,0,0,0},    
         };
-        //to the right 1.276
-        //down 3.72
+        //array of map sprites where mapPieces[0] is the parent empty object
         mapPieces = GetComponentsInChildren<Transform>();
+
+        //loop through every row
         for (int i = 0; i< levelMap.GetLength(0); i++)
         {
-
+            //loop through every column
             for (int j = 0; j < levelMap.GetLength(1); j++)
             {
+                //numerical represenation of map sprite
                 int mapPiece = levelMap[i,j];
+
+                //create current map piece in loop where the selected sprite is "mapPiece+1" and location is row*1.276f and column*1.276f
                 Transform currentPiece = Instantiate(mapPieces[mapPiece+1], new Vector3(j*1.276f, i*-1.276f, 0f), Quaternion.identity);
                 float rotate = 0;
+
+                //determine rotation of map piece, only pieces that need rotating are 2,3,4,5 & 8
                 switch (mapPiece+1)
                 {
                     case 2:
@@ -77,6 +83,9 @@ public class LevelGenerator : MonoBehaviour
             }
         }
     }
+
+    //return piece north of current piece
+    //if there is no piece north of current piece return 10 (unused number)
     public int North(int i, int j)
     {
         if (i == 0)
@@ -88,6 +97,8 @@ public class LevelGenerator : MonoBehaviour
             return levelMap[i - 1, j];
         }
     }
+    //return piece east of current piece
+    //if there is no piece east of current piece return 10 (unused number)
     public int East(int i, int j)
     {
         if (j == 13)
@@ -99,6 +110,8 @@ public class LevelGenerator : MonoBehaviour
             return levelMap[i, j+1];
         }
     }
+    //return piece south of current piece
+    //if there is no piece south of current piece return 10 (unused number)
     public int South(int i, int j)
     {
         if (i == 14)
@@ -110,6 +123,8 @@ public class LevelGenerator : MonoBehaviour
             return levelMap[i + 1, j];
         }
     }
+    //return piece west of current piece
+    //if there is no piece west of current piece return 10 (unused number)
     public int West(int i, int j)
     {
         if (j == 0)
@@ -122,7 +137,7 @@ public class LevelGenerator : MonoBehaviour
         }
     }    
 
-    //CORNERS NEED PRESEDENCE
+    //determine rotation of current corner piece based on the pieces sorounding it
     public float Corner(int north, int east, int south, int west)
     {
         float rotate = 0f;
@@ -158,6 +173,8 @@ public class LevelGenerator : MonoBehaviour
 
         return rotate;
     }
+
+    //determine rotation of current wall piece based on the pieces sorounding it
     public float Wall(int north, int east, int south, int west)
     {
 
@@ -194,10 +211,5 @@ public class LevelGenerator : MonoBehaviour
         }
         
         return rotate;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
